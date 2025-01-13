@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    <title> Weather App</title>
+    <link rel = "stylesheet" href ="style.css">
+</head>
+<body>
+
+<div class = "card">
+    <div class = "search">
+        <input type = "text" placeholder = "Enter City Name"
+        spellcheck = "false">
+        <button><img src = "images/search.png"></button>
+    </div>
+    <div class = "weather">
+        <img src= "images/clouds.png" class= "weather-icon">
+        <h1 class = "temp">44°F</h1>
+        <h2 class = "city">Cary</h2>
+        <div class="details">
+            <div class="col">
+                <img src="images/humidity.png">
+                <div>
+                    <p class="humidity">56%</p>
+                    <p>Humidity</p>
+                </div>
+            </div>
+            <div class="col">
+                <img src="images/wind.png">
+                <div>
+                    <p class="wind">6 m/h</p>
+                    <p>Wind Speed</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>    
+
+<script>
+    
+    const apiKey = "c6e7fc919d301cc7e1b8697c918d0944";
+    const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=imperial&q=";
+
+    const searchBox = document.querySelector(".search input");
+    const searchBtn = document.querySelector(".search button");
+
+    async function checkWeather(city){
+        const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
+        var data = await response.json();
+
+        console.log(data);
+
+        document.querySelector(".city").innerHTML = data.name;
+        document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°F";
+        document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
+        document.querySelector(".wind").innerHTML = data.wind.speed + " m/h";
+
+
+
+    }
+
+searchBtn.addEventListener("click", ()=>{
+    checkWeather(searchBox.value);
+})
+
+async function generate_weather() {
+
+var jsonRes = await getWeather();
+
+for (let times in jsonRes.timeSeries) {
+let currentTime = times.validTime;
+let date = new Date(currentTime);
+let currentHour = date.getHours();
+
+for (let param in times.parameters) {
+    let name = param.name;
+    let value = param.values[0];
+    let unit = param.unit;
+    Console.log('Temperature of ' + name + ' is ' + value + ' ' + unit); 
+}
+}
+    
+for (var i = 0; i == currentHour;) {
+    var newElement = document.createElement('h2');
+    var newElementText = document.createTextNode(jsonRes.timeSeries[i].times[i].parameters[0]);
+
+    newElement.appendChild(newElementText);
+
+    document.getElementById("body").appendChild(newElement);
+}
+}
+
+generate_weather();
+
+
+</script>
+
+</body>
+</html>
