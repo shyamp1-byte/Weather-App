@@ -1,6 +1,6 @@
 # Weather App
 
-- The Weather App is a simple web application that allows users to check the current weather of any city. By entering a city name, the app fetches real-time weather data using the OpenWeatherMap API and displays key weather details
+- The Weather App is a simple web application that allows users to check the current weather of any city. By entering a city name, the app fetches real-time weather data using the OpenWeatherMap API and displays key weather details.
 
 # What did I learn?
 
